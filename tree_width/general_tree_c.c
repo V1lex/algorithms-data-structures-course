@@ -9,36 +9,36 @@ typedef struct Node {
 } Node;
 
 Node* createNode(int key) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    if (newNode == NULL) {
+    Node* new_node = (Node*)malloc(sizeof(Node));
+    if (new_node == NULL) {
         fprintf(stderr, "Ошибка выделения памяти\n");
         return NULL;
     }
-    newNode->key = key;
-    newNode->parent = NULL;
-    newNode->firstChild = NULL;
-    newNode->nextSibling = NULL;
-    return newNode;
+    new_node->key = key;
+    new_node->parent = NULL;
+    new_node->firstChild = NULL;
+    new_node->nextSibling = NULL;
+    return new_node;
 }
 
 Node* insertChild(Node* parent, int key) {
     if (parent == NULL) return NULL;
 
-    Node* newNode = createNode(key);
-    if (newNode == NULL) return NULL;
+    Node* new_node = createNode(key);
+    if (new_node == NULL) return NULL;
 
-    newNode->parent = parent;
+    new_node->parent = parent;
 
     if (parent->firstChild == NULL) {
-        parent->firstChild = newNode;
+        parent->firstChild = new_node;
     } else {
         Node* sibling = parent->firstChild;
         while (sibling->nextSibling != NULL) {
             sibling = sibling->nextSibling;
         }
-        sibling->nextSibling = newNode;
+        sibling->nextSibling = new_node;
     }
-    return newNode;
+    return new_node;
 }
 
 Node* findNode(Node* root, int key) {
@@ -53,6 +53,7 @@ Node* findNode(Node* root, int key) {
     }
     return NULL;
 }
+
 int createRoot(Node** root, int key) {
     if (*root != NULL) {
         fprintf(stderr, "Корень уже существует\n");
@@ -67,15 +68,15 @@ int createRoot(Node** root, int key) {
     }
 }
 
-int addByParentKey(Node* root, int parentKey, int key) {
+int addByParentKey(Node* root, int parent_key, int key) {
     if (root == NULL) {
         fprintf(stderr, "Дерево пустое. Сначала создайте корень\n");
         return 1;
     }
 
-    Node* parent_node = findNode(root, parentKey);
+    Node* parent_node = findNode(root, parent_key);
     if (parent_node == NULL) {
-        fprintf(stderr, "Родительский узел с ключом %d не найден\n", parentKey);
+        fprintf(stderr, "Родительский узел с ключом %d не найден\n", parent_key);
         return 1;
     }
 
